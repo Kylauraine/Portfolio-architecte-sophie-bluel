@@ -471,8 +471,8 @@ z-index: 1;
 
 }
 
-#addImg {
-	display: flex;
+.previewImage {
+	display: none;
 	justify-content: center;
 	align-items: center;
 }

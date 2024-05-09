@@ -90,10 +90,11 @@ function createModal2() {
         }
     });
 
-    const imgId = 'previewImage';
-    const img = document.createElement('img');
-    img.setAttribute('id', imgId);
-    img.className = 'previewImage';
+    const img = document.getElementById('previewImage');
+
+
+    // Ajouter un écouteur d'événements pour détecter les changements dans l'élément
+addImgContainer.addEventListener('change', previewPhoto);
 
     const globalForm = document.getElementById('globalForm');
     const imgSizeTxt = document.querySelector('.imgSizeTxt');
@@ -196,26 +197,28 @@ function closeModal() {
   }
   
   function previewPhoto(event) {
-      const addImgContainer = event.target;
-      const imgId = 'previewImage';
-      const previewImage = document.getElementById(imgId);
-      const addImgBtn = document.getElementById('addImgBtn');
-      const imgSizeTxt = document.querySelector('.imgSizeTxt');
-      const iconImage = document.querySelector('.fa-image');
-  
-      if (previewImage && addImgContainer.files.length > 0) {
-          const reader = new FileReader();
-          reader.onload = function(event) {
-              previewImage.src = event.target.result;
-              previewImage.style.display = 'block';
-              addImgContainer.innerHTML = '';
-              addImgBtn.style.display = 'none';
-              imgSizeTxt.style.display = 'none';
-              iconImage.style.display = 'none';
-          };
-          reader.readAsDataURL(addImgContainer.files[0]);
-      }
-  }
+    console.log("La fonction previewPhoto() est appelée !");
+
+    const addImgContainer = event.target;
+    const previewImage = document.getElementById('previewImage');
+    const addImgBtn = document.querySelector('.addImgBtn');
+    const imgSizeTxt = document.querySelector('.imgSizeTxt');
+    const iconImage = document.querySelector('.fa-image');
+
+    console.log('addImgContainer.files :', addImgContainer.files);
+
+    if (previewImage && addImgContainer.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            previewImage.src = event.target.result;
+            previewImage.style.display = 'block';
+            addImgBtn.style.display = 'none';
+            imgSizeTxt.style.display = 'none';
+            iconImage.style.display = 'none';
+        };
+        reader.readAsDataURL(addImgContainer.files[0]);
+    }
+}
   
   // Écouter le clic sur le bouton d'ouverture de la modale
   let addButton1 = document.getElementById('addButton1');
@@ -229,13 +232,21 @@ function resetForm() {
     const imgFile = document.getElementById('imageUrl');
     const imgTitle = document.getElementById('imgTitle');
     const selectCategory = document.getElementById('selectCategory');
-    // const previewImage = document.getElementById('previewImage');
+    const previewImage = document.getElementById('previewImage');
+    const addImgBtn = document.querySelector('.addImgBtn');
+    const imgSizeTxt = document.querySelector('.imgSizeTxt');
+    const iconImage = document.querySelector('.fa-image');
   
     if (imgFile && imgTitle && selectCategory) {
         imgFile.value = '';
         imgTitle.value = '';
         selectCategory.selectedIndex = 0;
-        // previewImage.src = '';
+        previewImage.src = '';
+        previewImage.style.display = 'none';
+        addImgBtn.style.display = 'flex';
+        imgSizeTxt.style.display = 'block';
+        iconImage.style.display = 'flex';
+
     } else {
         console.error("Certains éléments du formulaire n'ont pas été trouvés.");
         console.log('imgFile :', imgFile, 'imgTitle :', imgTitle, 'selectCategory :', selectCategory);
