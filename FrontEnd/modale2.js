@@ -94,7 +94,7 @@ function createModal2() {
 
 
     // Ajouter un écouteur d'événements pour détecter les changements dans l'élément
-addImgContainer.addEventListener('change', previewPhoto);
+    addImgContainer.addEventListener('change', previewPhoto);
 
     const globalForm = document.getElementById('globalForm');
     const imgSizeTxt = document.querySelector('.imgSizeTxt');
@@ -132,6 +132,9 @@ addImgContainer.addEventListener('change', previewPhoto);
             handleFormSubmit();
         });
     }
+
+    // Ajouter la classe "active" à modalContainer2 pour l'afficher
+    modalContainer2.classList.add('active');
 
     return modalContainer2;
 }
@@ -197,7 +200,6 @@ function closeModal() {
   }
   
   function previewPhoto(event) {
-    console.log("La fonction previewPhoto() est appelée !");
 
     const addImgContainer = event.target;
     const previewImage = document.getElementById('previewImage');
@@ -220,12 +222,13 @@ function closeModal() {
     }
 }
   
-  // Écouter le clic sur le bouton d'ouverture de la modale
-  let addButton1 = document.getElementById('addButton1');
-  addButton1.addEventListener('click', () => {
-      const modalContainer2 = createModal2();
-      modalContainer2.classList.add('active'); // Afficher la modale
-  });
+
+    let addButton1 = document.querySelector('.addWorksBtn');
+    addButton1.addEventListener('click', () => {
+        console.log("Le bouton d'ajout a été cliqué !");
+        createModal2();
+    });
+
   
 // Fonction pour vider les champs du formulaire quand on ferme la modale
 function resetForm() {
